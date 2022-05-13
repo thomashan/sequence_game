@@ -6,7 +6,7 @@
 
 plugins {
     // Apply the groovy Plugin to add support for Groovy.
-    id 'groovy'
+    id "groovy"
 }
 
 repositories {
@@ -16,14 +16,12 @@ repositories {
 
 dependencies {
     constraints {
-        // Define dependency versions as constraints
-        implementation 'org.apache.commons:commons-text:1.9'
-
-        implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+        implementation "org.apache.groovy:groovy-all:4.0.2"
     }
 
-    // Use the latest Groovy version for building this library
-    implementation 'org.codehaus.groovy:groovy-all'
+    implementation("org.apache.groovy:groovy-all") {
+        exclude group: "junit", module: "junit"
+    }
 }
 
 testing {
@@ -31,7 +29,7 @@ testing {
         // Configure the built-in test suite
         test {
             // Use JUnit Jupiter test framework
-            useJUnitJupiter('5.8.1')
+            useJUnitJupiter("5.8.2")
         }
     }
 }

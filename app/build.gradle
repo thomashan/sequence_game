@@ -5,14 +5,14 @@
  */
 
 plugins {
-    id 'com.thomashan.game.sequence.groovy-application-conventions'
+    id "com.thomashan.game.sequence.groovy-application-conventions"
 }
 
 dependencies {
-    implementation project(':utilities')
+    implementation project(":utilities")
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.thomashan.game.sequence.app.App'
+    mainClass = "com.thomashan.game.sequence.app.App"
 }

@@ -5,7 +5,7 @@
  */
 
 plugins {
-    id 'com.thomashan.game.sequence.groovy-library-conventions'
+    id "com.thomashan.game.sequence.groovy-library-conventions"
 }
 
 dependencies {
