@@ -1,6 +1,6 @@
 package com.thomashan.game.sequence.domain.card
 
-import com.thomashan.game.sequence.domain.player.Player
+
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -72,15 +72,5 @@ class CardDeckTest {
             }
             .toList() * 2
         assert predicate.test(orderedCards)
-    }
-
-    @Test
-    void testDraw() {
-        def (List<Player> players, CardDeck deck) = cardDeck.draw(List.of(new Player("Player 1", 7, List.of()), new Player("Player 2", 7, List.of())))
-        assert players.size() == 2
-        players.stream().forEach({ player ->
-            assert 7 == player.cards().size()
-        })
-        assert cardDeck.cards().size() - 14 == deck.cards().size()
     }
 }

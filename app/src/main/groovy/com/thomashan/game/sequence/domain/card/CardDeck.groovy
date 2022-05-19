@@ -1,10 +1,24 @@
 package com.thomashan.game.sequence.domain.card
 
-import com.thomashan.game.sequence.domain.player.Player
+
+import com.thomashan.game.sequence.events.card.DealtCards
+import com.thomashan.game.sequence.events.card.DrewCard
 
 import static Card.of
 
 record CardDeck(List<Card> cards, boolean shuffled) {
+    CardDeck plus(DrewCard drewCard) {
+        return this - drewCard.card()
+    }
+
+    CardDeck plus(DealtCards dealtCards) {
+        return this - dealtCards.allCards
+    }
+
+    List<Card> take(int numberOfCards) {
+        return cards.take(numberOfCards)
+    }
+
     CardDeck minus(Card card) {
         List<Card> newCards = new ArrayList<>(cards)
         newCards.removeElement(card)
@@ -15,32 +29,6 @@ record CardDeck(List<Card> cards, boolean shuffled) {
         List<Card> newCards = new ArrayList<>(cards)
         cardsToRemove.forEach({ cardToRemove -> newCards.removeElement(cardToRemove) })
         new CardDeck(newCards, shuffled)
-    }
-
-    Tuple2<List<Player>, CardDeck> draw(List<Player> players, Map<Player, List<Card>> dealCards) {
-        List<Card> cardsToDeal = dealCards.entrySet().stream()
-            .flatMap({ it.value.stream() })
-            .toList()
-        List<Player> newPlayers = players.stream()
-            .map({ player ->
-                List<Card> dealtCards = dealCards.getOrDefault(player, [])
-                return new Player(player.name(), player.maxCards(), player.cards() + dealtCards)
-            })
-            .toList()
-        return new Tuple2(newPlayers, this - cardsToDeal)
-    }
-
-    Tuple2<List<Player>, CardDeck> draw(List<Player> players) {
-        List<Card> newCards = cards
-        List<Player> newPlayers = players.stream()
-            .map({ Player player ->
-                int numberOfCardsToDraw = player.maxCards() - player.cards().size()
-                List<Card> playerNewCards = player.cards() + newCards.take(numberOfCardsToDraw)
-                newCards = newCards.drop(numberOfCardsToDraw)
-                return new Player(player.name(), player.maxCards(), playerNewCards)
-            })
-            .toList()
-        return new Tuple2(newPlayers, new CardDeck(newCards, shuffled))
     }
 
     CardDeck shuffle() {

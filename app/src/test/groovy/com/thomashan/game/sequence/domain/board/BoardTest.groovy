@@ -19,8 +19,17 @@ class BoardTest {
 
     @Test
     void testStandard_Size() {
-        assert 10 == board.boardCells.size()
-        board.boardCells.forEach({ assert 10 == it.size() })
+        assert 100 == board.boardCells.size()
+        for (int i = 0; i < 10; i++) {
+            assert 10 == board.boardCells.entrySet().stream()
+                .findAll({ i == it.key.column() })
+                .size()
+        }
+        for (int i = 0; i < 10; i++) {
+            assert 10 == board.boardCells.entrySet().stream()
+                .findAll({ i == it.key.row() })
+                .size()
+        }
     }
 
     @Test
@@ -30,7 +39,9 @@ class BoardTest {
                 Arrays.stream(CardNumber.values() - JACK).map { CardNumber number -> of(number, suite) }
             }
             .toList()
-        List<BoardCell> boardCells = board.boardCells.flatten()
+        List<BoardCell> boardCells = board.boardCells.entrySet().stream()
+            .map({ it.value })
+            .toList()
         assert 4 == boardCells.findAll { it.wild() }.size()
         for (Card card : cards) {
             assert 2 == boardCells.findAll { it.card == Optional.of(card) }.size()
