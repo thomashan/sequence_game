@@ -1,7 +1,7 @@
-package com.thomashan.game.sequence.player
+package com.thomashan.game.sequence.domain.player
 
-import com.thomashan.game.sequence.card.Card
-import com.thomashan.game.sequence.events.DrewCard
+import com.thomashan.game.sequence.domain.card.Card
+import com.thomashan.game.sequence.events.card.DrewCard
 
 record Player(String name, int maxCards, List<Card> cards) {
     Player plus(DrewCard drewCard) {

@@ -1,6 +1,6 @@
-package com.thomashan.game.sequence.events
+package com.thomashan.game.sequence.events.card
 
-import com.thomashan.game.sequence.card.CardDeck
+import com.thomashan.game.sequence.domain.card.CardDeck
 import groovy.transform.ImmutableOptions
 
 import java.time.Instant

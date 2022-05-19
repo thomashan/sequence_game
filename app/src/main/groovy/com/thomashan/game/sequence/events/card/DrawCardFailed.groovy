@@ -1,4 +1,4 @@
-package com.thomashan.game.sequence.events
+package com.thomashan.game.sequence.events.card
 
 
 import java.time.Instant
