@@ -1,10 +1,15 @@
 package com.thomashan.game.sequence.domain.player
 
 import com.thomashan.game.sequence.domain.card.Card
-import com.thomashan.game.sequence.events.card.DrewCard
 
-record Player(String name, int maxCards, List<Card> cards) {
-    Player plus(DrewCard drewCard) {
-        return new Player(name, maxCards, cards + drewCard.cardDeck().cards().head())
+record Player(String name, Colour colour, int maxCards, boolean allowAnyDiscard, List<Card> cards) {
+    Player plus(Card card) {
+        return new Player(name, colour, maxCards, allowAnyDiscard, cards + card)
+    }
+
+    Player minus(Card card) {
+        List<Card> newCards = new ArrayList<>(cards)
+        newCards.removeElement(card)
+        return new Player(name, colour, maxCards, allowAnyDiscard, newCards)
     }
 }

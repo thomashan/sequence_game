@@ -1,13 +1,9 @@
 package com.thomashan.game.sequence.events.card
 
-import com.thomashan.game.sequence.domain.card.CardDeck
+import com.thomashan.game.sequence.domain.card.Card
+import com.thomashan.game.sequence.domain.player.Player
 import groovy.transform.ImmutableOptions
 
-import java.time.Instant
-
-@ImmutableOptions(knownImmutables = ["cardDeck"])
-record DrewCard(Instant timestamp, CardDeck cardDeck) implements DrawCardEvent {
-    Instant getTimestamp() {
-        return timestamp
-    }
+@ImmutableOptions(knownImmutables = ["player", "card"])
+record DrewCard(Player player, Card card) implements DrawCardEvent {
 }
